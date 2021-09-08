@@ -1,49 +1,114 @@
+training_types = ('Weights', 'Fingerboarding', 'Bouldering', 'Sport Climbing')
+date = 'null'
+
+
 def initial_log():
+    """
     # Request user what training they would like to do and return integer ID
-    training_type = input("What training would you like to do? (Please enter a number)\n"
-                          "1 = Weights\n"
-                          "2 = Fingerboarding\n"
-                          "3 = Bouldering\n"
-                          "4 = Sport Climbing")
 
-    return training_type
-
-
-def suggest_exercise(type: int):
-    """
-    This will request the user choose training methods for a given exercise type
-    and will loop through until all exercises are logged.
-
-    :param type: The ID of the
-    :return:exercise type as an INT
+    :return:training_type as an INT
     """
 
-    type_dict = {
-        1: 'Weights',
-        2: 'Fingerboarding',
-        3: 'Bouldering',
-        4: 'Sport Climbing'
-    }
+    print("What training would you like to do?")
+
+    for i in range(len(training_types)):
+        print(f"[{i + 1}] {training_types[i]}")
+
+    training_type = input("Please enter a number:")
+
+    while training_type not in '1234':
+        training_type = input("Please enter a value between 1-4:")
+    print('')
+
+    return int(training_type) - 1
+
+
+def suggest_exercise(training_id):
+    """
+    This will request the user choose training methods for a given exercise type and will loop through until all
+    exercises are logged.
+
+    :return: None
+    """
+
+    weights_exercises = ('Weighted Pull-Ups', 'Bench Press', 'Deadlifts', 'Core')
+    fingerboarding_exercises = ('Max hangs', 'Repeaters', 'Density Hangs', 'injury_prevention')
+    bouldering_exercises = ('4x4', 'Limit Bouldering', 'Skills Session', 'Open Session')
+    sport_exercises = ('Redpointing', 'Onsighting', '4x4', 'Open Session')
+    exercises = [weights_exercises, fingerboarding_exercises, bouldering_exercises, sport_exercises]
 
     # Ask user what exercise they want to do within a given training type
-    print(f"For type_dict[type] do you feel like\n")
+    print(f"For {training_types[training_id]} what exercise do you want to log:")
 
-    if input("Would you like to do "):
-        'xxx'
-    elif input("Would you like to do a different type of exercise?"):
-        initial_log()
+    for i in range(len(exercises[training_id])):
+        print(f"[{i + 1}] {exercises[training_id][i]}")
+
+    exercise_id = input("Please enter a number:")
+
+    while exercise_id not in '1234':
+        exercise_id = input("Please enter a value between 1-4:")
+    print('')
+
+    log_exercise(training_types[training_id], exercises[training_id][int(exercise_id) - 1])
 
 
-def weights():
-    # Define different weights exercises
-    weights_exercises = {
-        1: 'Weighted Pull-Ups',
-        2: 'Bench Press',
-        3: 'Deadlifts'
-    }
+def log_exercise(training, exercise):
+    """
+    This will request more details from the user and log the training in training_log.txt.
 
-    # Iterate through each exercises
-    for key, value in weights_exercises:
-        print(f'weights_exercises.key = weighted_exercises.value')
+    :return: None
+    """
+    print("Training log entry:")
+    get_date()
+    details = input("Please write the details of the training:")
 
-    return input("Please choose a number from the above list:")
+    with open('training_log.txt', 'a') as f:
+        f.write(f'{date},{training},{exercise},{details}\n')
+
+    print('Training logged.\n')
+
+
+def same_additional(training_id):
+    """
+    This will request whether the user would like to log more training and will recursively call itself until the user
+    says no.
+
+    :return: None
+    """
+    sametype = input("Would you like to log a different type of exercise for the same training type? (y/n)").lower()
+
+    while not (sametype == 'y' or sametype == 'n'):
+        sametype = input("Please enter either 'y' or 'n':").lower()
+
+    if sametype == 'y':
+        suggest_exercise(training_id)
+        same_additional(training_id)
+    print('')
+
+def different_additional():
+    different = input("Would you like to log an exercise for a different training type? (y/n)").lower()
+
+    while not (different == 'y' or different == 'n'):
+        different = input("Please enter either 'y' or 'n':").lower()
+    print('')
+
+    if different == 'y':
+        training_id = initial_log()
+        suggest_exercise(training_id)
+        same_additional(training_id)
+        different_additional()
+
+
+def get_date():
+    global date
+
+    if date != 'null':
+        samedate = input("Would you like to use the same date (y/n)?").lower()
+        while not (samedate == 'y' or samedate == 'n'):
+            samedate = input("Please enter either 'y' or 'n':").lower()
+
+        if samedate == 'n':
+            date = input("Please enter the date (dd/mm/yyyy):")
+
+    else:
+        date = input("Please enter the date (dd/mm/yyyy):")
