@@ -5,3 +5,5 @@ DATE, TRAINING TYPE, EXERCISE TYPE, DETAILS
 22/07/2021,Sport Climbing,Open Session,did all 5s at medusa falls sector at blacknor central in Portland
 22/08/1992,Fingerboarding,Density Hangs,8s,5x+15kg
 22/08/1992,Bouldering,4x4,4x v3,v2,v4,v3
+08/08/2021,Bouldering,Skills Session,Worked on footwork for 1hr
+08/08/2021,Sport Climbing,Onsighting,onsight 10 6as

@@ -58,6 +58,7 @@ def log_exercise(training, exercise):
 
     :return: None
     """
+
     print("Training log entry:")
     get_date()
     details = input("Please write the details of the training:")
@@ -70,11 +71,12 @@ def log_exercise(training, exercise):
 
 def same_additional(training_id):
     """
-    This will request whether the user would like to log more training and will recursively call itself until the user
-    says no.
+    This will request whether the user would like to log more of the same training and will recursively call itself
+    until the user says no.
 
     :return: None
     """
+
     sametype = input("Would you like to log a different type of exercise for the same training type? (y/n)").lower()
 
     while not (sametype == 'y' or sametype == 'n'):
@@ -86,6 +88,13 @@ def same_additional(training_id):
     print('')
 
 def different_additional():
+    """
+    This will request whether the user would like to log different training and will recursively call itself until the
+    user says no.
+
+    :return: None
+    """
+
     different = input("Would you like to log an exercise for a different training type? (y/n)").lower()
 
     while not (different == 'y' or different == 'n'):
@@ -100,6 +109,14 @@ def different_additional():
 
 
 def get_date():
+    """
+    For the first training log, will request the date from the user, else will request if the user wants to use the
+    previous date or input a new date.
+    user says no.
+
+    :return: None
+    """
+
     global date
 
     if date != 'null':
