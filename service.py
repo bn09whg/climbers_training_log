@@ -32,7 +32,7 @@ def suggest_exercise(training_id):
     """
 
     weights_exercises = ('Weighted Pull-Ups', 'Bench Press', 'Deadlifts', 'Core')
-    fingerboarding_exercises = ('Max hangs', 'Repeaters', 'Density Hangs', 'injury_prevention')
+    fingerboarding_exercises = ('Max hangs', 'Repeaters', 'Density Hangs', 'Injury Prevention')
     bouldering_exercises = ('4x4', 'Limit Bouldering', 'Skills Session', 'Open Session')
     sport_exercises = ('Redpointing', 'Onsighting', '4x4', 'Open Session')
     exercises = [weights_exercises, fingerboarding_exercises, bouldering_exercises, sport_exercises]
@@ -87,6 +87,7 @@ def same_additional(training_id):
         same_additional(training_id)
     print('')
 
+
 def different_additional():
     """
     This will request whether the user would like to log different training and will recursively call itself until the
@@ -129,3 +130,5 @@ def get_date():
 
     else:
         date = input("Please enter the date (dd/mm/yyyy):")
+        while not len(date) == 10:
+            date = input("Please enter the date using the format 'dd/mm/yyyy':")
